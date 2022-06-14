@@ -60,6 +60,19 @@ def get_min(key, dic):
         raise ValueError("No hay elementos")
     print(dic_list)
 
+class Stop:
+    def __init__(self, id, name, description, lat, lon):
+        self.id = id
+        self.name = name
+        self.description = description
+        self.lat = lat
+        self.lon = lon
+    def to_string(self):
+        print("id:"+self.id+" name:"+self.name+" description:"+self.description+" lat:"+self.lat+" lon:"+self.lon)
+def convert_to_object(k, d):
+    dic_interno=d[k]
+    obj = Stop(dic_interno["id"],dic_interno["name"],dic_interno["description"],dic_interno["lat"],dic_interno["lon"])
+    return obj
 
 if __name__ == "__main__":
     dic=read_data("stops.csv","stops_data.csv")
@@ -90,3 +103,5 @@ if __name__ == "__main__":
         get_min(1023, dic)
     except ValueError:
         print("Ha saltado error")
+    obj = convert_to_object("1080", dic)
+    obj.to_string()
