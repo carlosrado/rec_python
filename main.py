@@ -1,4 +1,5 @@
 import csv
+from tkinter.tix import Tree
 
 def read_data(filename1, filename2):
     dic = {}
@@ -25,11 +26,35 @@ def read_data(filename1, filename2):
     return dic
 
 def get_name_description(key, dic):
-    dic_interno = dic[key]
-    name=dic_interno["name"]
-    desc=dic_interno["description"]
-    return name, desc
+    if key not in dic.keys() == True:
+        raise ValueError("No existe")
+    else:
+        dic_interno = dic[key]
+        name=dic_interno["name"]
+        desc=dic_interno["description"]
+        return name, desc
+
+def search_by_lon(lon, dic):
+    lon_list=[]
+    for k in dic.keys():
+        dic_interno=dic[k]
+        lon_list.append(dic_interno["lon"])
+    print(lon_list)
 
 if __name__ == "__main__":
     dic=read_data("stops.csv","stops_data.csv")
-    name, desc = get_name_description("1020",dic)
+    try:
+        name, desc = get_name_description("1020",dic)
+        print(name, desc)
+
+    except ValueError:
+        print("Ha saltado error")
+    
+    try:
+        name, desc = get_name_description("2020",dic)
+        print(name, desc)
+
+    except ValueError:
+        print("Ha saltado error")
+
+    search_by_lon(1.0, dic)
